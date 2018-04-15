@@ -35,10 +35,10 @@ def checkDistance():
         if len(resArr) > 0:
             distance = int(resArr[0])
             print(distance)
-            if distance < -20:
+            if distance < -30:
                 if sell:
                     sell = False
-                    contents = urllib2.urlopen("176.31.100.76:9999/item/SKU1000878/sell").read()
+                    contents = urllib2.urlopen("http://176.31.100.76:9999/item/SKU1000878/sell").read()
 
         time.sleep(1)
 
