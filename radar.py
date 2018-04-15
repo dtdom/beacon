@@ -6,7 +6,7 @@ import bluetooth._bluetooth as bluez
 import bluetooth
 import thread
 import subprocess
-import requests
+import urllib2
 import time
 import re
 import RPi.GPIO as GPIO
@@ -15,7 +15,7 @@ from twilio.rest import TwilioRestClient
 GPIO.setmode(GPIO.BOARD) ## Use board pin numbering
 
 distance = -1000
-
+sell = True
 
 def byte_to_signed_int(byte_):
     if byte_>127:
@@ -35,7 +35,9 @@ def checkDistance():
             distance = int(resArr[0])
             print(distance)
             if distance < -20:
-                r = requests.get('176.31.100.76:9999/item/SKU1000878/sell')
+                if sell:
+                    sell = False
+                    contents = urllib2.urlopen("176.31.100.76:9999/item/SKU1000878/sell").read()
 
         time.sleep(1)
 
