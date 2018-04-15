@@ -6,6 +6,7 @@ import bluetooth._bluetooth as bluez
 import bluetooth
 import thread
 import subprocess
+import requests
 import time
 import re
 import RPi.GPIO as GPIO
@@ -25,7 +26,7 @@ def byte_to_signed_int(byte_):
 
 def checkDistance():
     while True:
-        res = subprocess.Popen('hcitool rssi "78:00:9E:32:7D:37"', shell=True, stdout=subprocess.PIPE).stdout.read()
+        res = subprocess.Popen('hcitool rssi "34:2D:0D:BF:5E:E6"', shell=True, stdout=subprocess.PIPE).stdout.read()
 
         p = re.compile('RSSI return value: (.*)')
         resArr = p.findall(res)
@@ -33,6 +34,8 @@ def checkDistance():
         if len(resArr) > 0:
             distance = int(resArr[0])
             print(distance)
+            if distance < -20:
+                r = requests.get('176.31.100.76:9999/item/SKU1000878/sell')
 
         time.sleep(1)
 
