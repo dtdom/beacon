@@ -25,6 +25,7 @@ def byte_to_signed_int(byte_):
 
 
 def checkDistance():
+    global sell
     while True:
         res = subprocess.Popen('hcitool rssi "34:2D:0D:BF:5E:E6"', shell=True, stdout=subprocess.PIPE).stdout.read()
 
